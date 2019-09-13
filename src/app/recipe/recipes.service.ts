@@ -1,10 +1,9 @@
 import { Recipe } from './recipe.model'
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 @Injectable()
 export class RecipesService {
-    recipeSelected = new EventEmitter<Recipe>();
     private recipes: Recipe[] = [
         new Recipe('Prontha', 'test teksjafdldfs', 'https://recipes.timesofindia.com/thumb/53109843.cms?imgsize=244340&width=800&height=800', [
             new Ingredient('onion', 1),
