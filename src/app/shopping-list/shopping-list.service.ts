@@ -18,15 +18,22 @@ export class ShoppingListService {
         this.ingredients.push(ingredient);
         this.ingredientsChanged.next(this.ingredients.slice());
     }
-    updateIngredient(index:number,newIngredient: Ingredient) {
-        this.getIngredient(index);
-        this.ingredientsChanged.next(this.ingredients.slice());
-    }
     addIngredients(ingredients: Ingredient[]) {
         // ingredients.forEach((ingredient: Ingredient) => {
         //     this.addIngredient(ingredient);
         // });
         this.ingredients.push(...ingredients);
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
+    updateIngredient(index:number,newIngredient: Ingredient) {
+        // this.getIngredient(index);
+        this.ingredients[index]=newIngredient;
+        this.ingredientsChanged.next(this.ingredients.slice());
+    }
+
+    removeIngredient(index:number){
+                this.ingredients.splice(index,1);
         this.ingredientsChanged.next(this.ingredients.slice());
     }
 }

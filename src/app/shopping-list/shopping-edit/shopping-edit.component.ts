@@ -13,8 +13,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     editMode = false;
     editedIndex: number;
-    editedItem:Ingredient;
-    @ViewChild('f') slForm:NgForm; 
+    editedItem: Ingredient;
+    @ViewChild('f') slForm: NgForm;
     // @Output() newIngredient = new EventEmitter<Ingredient>();
     constructor(private shoppingListService: ShoppingListService) { }
 
@@ -23,10 +23,10 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
             (index: number) => {
                 this.editMode = true;
                 this.editedIndex = index;
-                this.editedItem=this.shoppingListService.getIngredient(index);
+                this.editedItem = this.shoppingListService.getIngredient(index);
                 this.slForm.setValue({
-                    name:this.editedItem.name,
-                    amount:this.editedItem.amount,
+                    name: this.editedItem.name,
+                    amount: this.editedItem.amount,
                 })
             }
         )
@@ -34,9 +34,24 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     onAddItem(form: NgForm) {
         console.log(form);
         const value = form.value;
-        const newIngredient = new Ingredient(value.name, value.amount)
-        this.shoppingListService.addIngredient(newIngredient);
+        const newIngredient = new Ingredient(value.name, value.amount);
+        if (this.editMode) {
+            this.shoppingListService.updateIngredient(this.editedIndex, newIngredient);
+        } else {
+            this.shoppingListService.addIngredient(newIngredient);
+        }
+        this.editMode = false;
+        form.reset();
     }
+    onClear() {
+        this.slForm.reset();
+        this.editMode = false;
+    }
+    onDelete(){
+        this.onClear();
+        this.shoppingListService.removeIngredient(this.editedIndex);
+    }
+
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
