@@ -19,6 +19,10 @@ import { RecipeStartComponent } from './recipe/recipe-start/recipe-start.compone
 import { RecipeEditComponent } from './recipe/recipe-edit/recipe-edit.component';
 import { RecipesService } from './recipe/recipes.service';
 import { DataStorageService } from './shared/data-storage.service';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth-guard.service';
 
 
 
@@ -34,7 +38,9 @@ import { DataStorageService } from './shared/data-storage.service';
         ShoppingEditComponent,
         DropDownDirective,
         RecipeStartComponent,
-        RecipeEditComponent 
+        RecipeEditComponent,
+        SignupComponent,
+        SigninComponent 
     ],
     imports: [
         BrowserModule,
@@ -43,7 +49,7 @@ import { DataStorageService } from './shared/data-storage.service';
         ReactiveFormsModule,
         HttpModule
     ],
-    providers: [ShoppingListService,RecipesService,DataStorageService],
+    providers: [ShoppingListService,RecipesService,DataStorageService,AuthService,AuthGuard],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { } 

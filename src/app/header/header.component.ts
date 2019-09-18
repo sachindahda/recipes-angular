@@ -3,6 +3,7 @@ import { DataStorageService } from '../shared/data-storage.service';
 import { Response } from '@angular/http';
 import { RecipesService } from '../recipe/recipes.service';
 import { Recipe } from '../recipe/recipe.model';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -11,7 +12,7 @@ import { Recipe } from '../recipe/recipe.model';
 })
 export class HeaderComponent implements OnInit {
     @Output() featureSelected = new EventEmitter<string>();
-    constructor(private dataStorageRecipe: DataStorageService,private recipeService:RecipesService) { }
+    constructor(private dataStorageRecipe: DataStorageService,private recipeService:RecipesService,private authService:AuthService) { }
 
     ngOnInit() {
     }
@@ -32,6 +33,9 @@ export class HeaderComponent implements OnInit {
                 this.recipeService.recipeChanged.next(recipes);
             }
         )
+    }
+    onLogOut(){
+        this.authService.logOut();
     }
 
 }
